@@ -6,6 +6,7 @@ const loading = document.getElementById('loading');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+
     const searchValue = input.value.trim();
 
     if (searchValue === "") {
@@ -17,6 +18,16 @@ form.addEventListener('submit', async (e) => {
     loading.innerHTML = `
         ⏳ Loading...
     `;
+
+
+    const searchValue = input.value.trim();
+    if (searchValue === "") {
+        loading.innerHTML = "❌ Sila masukkan carian!";
+        movieContainer.innerHTML = "";
+        return; // STOP TOTAL (NO FETCH)
+    }
+
+    loading.innerHTML = "⏳ Loading...";
     movieContainer.innerHTML = "";
 
     try {
@@ -26,8 +37,14 @@ form.addEventListener('submit', async (e) => {
 
         const data = await res.json();
 
+
         loading.innerHTML = "";
 
+
+
+        loading.innerHTML = "";
+
+       
         if (data.length === 0) {
             movieContainer.innerHTML = `
                 <p style="grid-column:1/-1;text-align:center;">
@@ -44,7 +61,13 @@ form.addEventListener('submit', async (e) => {
                 ? show.image.medium
                 : 'https://via.placeholder.com/210x295?text=No+Image';
 
+
             const premiered = show.premiered || 'N/A';
+
+            const premiered = show.premiered
+                ? show.premiered
+                : 'N/A';
+
 
             movieContainer.innerHTML += `
                 <div class="card">
